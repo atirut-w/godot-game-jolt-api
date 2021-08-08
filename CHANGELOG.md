@@ -8,9 +8,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 1.0.0 - 2021-07-04
 Initial release
-
-### Features
-- Authenticating users. Basically a fancy way of verifying username & token.
-- Simple log in GUI
-- Querying trophies and users.
-- Granting & revoking trophies.
