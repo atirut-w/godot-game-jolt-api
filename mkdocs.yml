@@ -1,0 +1,20 @@
+site_name: Godot Game Jolt API documentation
+site_author: Atirut Wattanamongkol
+
+repo_name: atirut-w/godot-game-jolt-api
+repo_url: https://github.com/atirut-w/godot-game-jolt-api
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: black
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - git-revision-date-localized
+
+markdown_extensions:
+  - admonition
