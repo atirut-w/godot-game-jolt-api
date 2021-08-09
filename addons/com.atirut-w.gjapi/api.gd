@@ -5,7 +5,7 @@ var game_key := ""
 
 var _username := ""
 var _token := ""
-var _is_authenticated := false
+var is_authenticated := false
 
 const base_url := "api.gamejolt.com/api/game"
 var api_version = api_versions.v1_2
@@ -20,12 +20,12 @@ func authenticate(username: String, token: String) -> bool:
 	if response:
 		_username = username
 		_token = token
-		_is_authenticated = true
+		is_authenticated = true
 		return true
 	else:
 		_username = ""
 		_token = ""
-		_is_authenticated = false
+		is_authenticated = false
 		return false
 
 func require_game_id() -> void:
