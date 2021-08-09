@@ -11,6 +11,10 @@ theme:
     primary: black
   icon:
     repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
 
 plugins:
   - search
@@ -18,3 +22,6 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - footnotes
