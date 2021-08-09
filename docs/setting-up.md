@@ -13,7 +13,7 @@ Since this API is created as a Godot plugin, the only thing you have to do to ge
 ## Configure the API
 Now that you have your game's ID and key, you can set up the game credentials from a script. It is recommended that you do this from a Game Manager[^1] script for convenience.
 
-Example script:
+Example:
 ```gd
 GameJolt.game_id = "id here"
 GameJolt.game_key = "key here"
