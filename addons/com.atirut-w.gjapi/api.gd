@@ -23,7 +23,7 @@ func _send_api_request(endpoint: String, queries := {}) -> Dictionary:
 	var response = JSON.parse(body).result.response
 	
 	if response.success == "true":
-		return JSON.parse(body).result.response
+		return response
 	else:
 		push_error(response.message)
 		return null
