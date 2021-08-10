@@ -15,7 +15,7 @@ const api_versions = {
 
 ## Bool return indicate whether the auth is successful or not.
 func authenticate(username: String, token: String) -> bool:
-	require_game_id()
+	if not _check_id(): return false
 	var response = yield(_send_api_request("users/auth/", {game_id = game_id, username = username, user_token = token}), "completed")
 	if response:
 		_username = username
@@ -28,8 +28,19 @@ func authenticate(username: String, token: String) -> bool:
 		is_authenticated = false
 		return false
 
-func require_game_id() -> void:
-	assert(game_id != "", "game ID is not set")
+func _check_id() -> bool:
+	if game_id != "":
+		return true
+	else:
+		push_error("Game ID is not set. Please set it before using this function.")
+		return false
+
+func _check_authenticated() -> bool:
+	if is_authenticated:
+		return true
+	else:
+		push_error("Not authenticated. Please authenticate before using this function.")
+		return false
 
 func _send_api_request(endpoint: String, queries := {}) -> Dictionary:
 	assert(game_key != "", "game key is not set") # This is not in it's own function because every API call have to be signed.
