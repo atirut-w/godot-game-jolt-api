@@ -15,7 +15,9 @@ const api_versions = {
 
 ## Bool return indicate whether the auth is successful or not.
 func authenticate(username: String, token: String) -> bool:
-	if not _check_id(): return false
+	if not _check_id():
+		yield(get_tree(), "idle_frame")
+		return false
 	var response = yield(_send_api_request("users/auth/", {game_id = game_id, username = username, user_token = token}), "completed")
 	if response:
 		_username = username
@@ -35,6 +37,13 @@ func _check_id() -> bool:
 		push_error("Game ID is not set. Please set it before using this function.")
 		return false
 
+func _check_key() -> bool:
+	if game_key != "":
+		return true
+	else:
+		push_error("Game ID is not set. Please set it before using this function.")
+		return false
+
 func _check_authenticated() -> bool:
 	if is_authenticated:
 		return true
@@ -43,7 +52,9 @@ func _check_authenticated() -> bool:
 		return false
 
 func _send_api_request(endpoint: String, queries := {}) -> Dictionary:
-	assert(game_key != "", "game key is not set") # This is not in it's own function because every API call have to be signed.
+	if not _check_key():
+		yield(get_tree(), "idle_frame")
+		return false
 	# Any double slashes after HTTP:// can ruin the signature.
 	var url = "https://" + ("%s/%s/%s" % [base_url, api_version, endpoint]).replace("//", "/")
 	
