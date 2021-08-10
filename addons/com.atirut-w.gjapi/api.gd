@@ -13,12 +13,11 @@ const api_versions = {
 	v1_2 = "v1_2"
 }
 
-## Bool return indicate whether the auth is successful or not.
 func authenticate(username: String, token: String) -> bool:
 	if not _check_id():
 		yield(get_tree(), "idle_frame")
 		return false
-	var response = yield(_send_api_request("users/auth/", {game_id = game_id, username = username, user_token = token}), "completed")
+	var response = yield(_send_api_request("users/auth/", {username = username, user_token = token}), "completed")
 	if response:
 		_username = username
 		_token = token
@@ -28,6 +27,32 @@ func authenticate(username: String, token: String) -> bool:
 		_username = ""
 		_token = ""
 		is_authenticated = false
+		return false
+
+func grant_trophy(id: int) -> bool:
+	if not _check_id():
+		yield(get_tree(), "idle_frame")
+		return false
+	if not _check_authenticated():
+		yield(get_tree(), "idle_frame")
+		return false
+	var response = yield(_send_api_request("trophies/add-achieved/", {username = _username, user_token = _token, trophy_id = id}), "completed")
+	if response:
+		return true
+	else:
+		return false
+
+func revoke_trophy(id: int) -> bool:
+	if not _check_id():
+		yield(get_tree(), "idle_frame")
+		return false
+	if not _check_authenticated():
+		yield(get_tree(), "idle_frame")
+		return false
+	var response = yield(_send_api_request("trophies/remove-achieved/", {username = _username, user_token = _token, trophy_id = id}), "completed")
+	if response:
+		return true
+	else:
 		return false
 
 func _check_id() -> bool:
@@ -60,6 +85,7 @@ func _send_api_request(endpoint: String, queries := {}) -> Dictionary:
 	
 	# Add queries
 	url += "?"
+	queries["game_id"] = game_id
 	for key in queries:
 		url += "&%s=%s" % [key, queries[key]]
 	url += "&signature=" + (url + game_key).md5_text() # Add signature.
