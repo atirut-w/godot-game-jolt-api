@@ -19,4 +19,7 @@ GameJolt.game_id = "id here"
 GameJolt.game_key = "key here"
 ```
 
+!!! info
+    Most of the functionalities of the Game API requires the game ID. The plugin will stop you from using them unless you have the game ID set.
+
 [^1]: A Game Manager is usually a singleton that manage things in a game such as score, game states, etc.
