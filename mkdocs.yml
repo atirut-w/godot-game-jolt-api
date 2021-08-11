@@ -3,6 +3,7 @@ site_author: Atirut Wattanamongkol
 
 repo_name: atirut-w/godot-game-jolt-api
 repo_url: https://github.com/atirut-w/godot-game-jolt-api
+edit_uri: edit/docs/docs/
 
 theme:
   name: material
